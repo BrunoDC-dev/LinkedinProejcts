@@ -12,7 +12,7 @@ driver.switch_to.window(driver.window_handles[-1])
 driver.maximize_window()
 
 # Wait for the page to load
-time.sleep(10)
+time.sleep(5)
 
 # Get the source code of the page
 html = driver.page_source
@@ -27,8 +27,13 @@ paragraph = html[first:last+26].replace('<span class="incomplete current">', '')
 print(paragraph)
 print('\n')
 
-keyboard.type(paragraph)
-
+for char in paragraph:
+    if char == "'":
+        keyboard.press(Key.apostrophe)
+        keyboard.release(Key.apostrophe)
+    else:
+        keyboard.press(char)
+        keyboard.release(char)
 # Close the tab and the web driver
 a = input('Apreta enter para terminar: ')
 driver.close()
